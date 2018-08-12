@@ -1,12 +1,23 @@
 package com.niyiandco;
 
 import java.math.BigDecimal;
+import java.util.ArrayList;
+import java.util.List;
 
 public class SavingsAccount implements Account {
 
     String accountHolder;
     String accountNumber;
-    BigDecimal accountBalance;
+    BigDecimal sourceAccountBalance;
+    BigDecimal targetAccountBalance;
+    List<Transaction> transactions;
+
+    public SavingsAccount(String accountHolder, String accountNumber) {
+        this.accountHolder = accountHolder;
+        this.accountNumber = accountNumber;
+        this.sourceAccountBalance = new BigDecimal(0.0);
+        this.targetAccountBalance = new BigDecimal(0.0);
+    }
 
     @Override
     public String getAccountHolder() {
@@ -20,39 +31,46 @@ public class SavingsAccount implements Account {
 
     @Override
     public BigDecimal getAccountBalance() {
-        return accountBalance;
+        return sourceAccountBalance;
     }
 
-    /**
-     * Add transaction to the account.
-     *
-     * @param transaction
-     * @throws RuntimeException
-     *             if transaction does not use this account or transaction is
-     *             not valid for this type of account.
-     */
-    public void addTransaction(Transaction transaction){
+    public void addTransaction(Transaction transaction) {
+        if (transactions == null) {
+            transactions = new ArrayList<>();
+        }
+        transactions.add(transaction);
+
+        if (transaction instanceof Deposit) {
+            System.out.println("Deposit not allowed on Savings");
+        } else if (transaction instanceof Withdrawal) {
+            System.out.println("Withdrawal not allowed on Saving");
+        } else if (transaction instanceof Transfer) {
+            sourceAccountBalance = sourceAccountBalance.subtract((transaction).getAmount());
+            targetAccountBalance = targetAccountBalance.add((transaction).getAmount());
+        } else if (transaction instanceof InterestPayment) {
+            sourceAccountBalance = sourceAccountBalance.add((transaction).getAmount());
+        }
 
     }
-
-    /**
-     * Return a string containing all the transactions of this account
-     *
-     * @return transaction output
-     */
-    public String printTransactions(){
-return null;
+    public String printTransactions() {
+        StringBuilder sb = new StringBuilder();
+        for (Transaction trans : transactions) {
+            String printLine = String.format("%tD : %s : $%.2f\n",
+                    trans.getDate(),
+                    trans.getType(),
+                    trans.getAmount());
+            sb.append(printLine);
+        }
+        return sb.toString();
     }
 
-    /**
-     * Return the account type, the account number, the account holder, and
-     * balance on this account
-     *
-     * @return account output
-     */
     @Override
-    public String toString(){
-return null;
+    public String toString() {
+        return String.format("Savings account %s : %s : $%.2f",
+                getAccountNumber(),
+                getAccountHolder(),
+                getAccountBalance());
+
     }
 
 

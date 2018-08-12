@@ -17,19 +17,19 @@ public class Withdrawal implements Transaction {
         this.amount = amount;
     }
 
-    public Transaction.TransactionType getType(){
+    public Transaction.TransactionType getType() {
         return WITHDRAWAL;
     }
 
-    public Date getDate(){
+    public Date getDate() {
         return date;
     }
 
-    public BigDecimal getAmount(){
+    public BigDecimal getAmount() {
         return amount;
     }
 
-    public Account getTargetAccount(){
+    public Account getTargetAccount() {
         return targetAccount;
     }
 
