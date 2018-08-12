@@ -1,8 +1,10 @@
 package com.niyiandco;
 
-public class JointSavingsAccount implements JointAccount {
+public abstract  class JointSavingsAccount implements JointAccount {
 
-    public String getSecondAccountHolder();
+    public String getSecondAccountHolder(){
+        return null;
+    }
 
     /**
      * Return the account type, the account number, the account holders, and all
@@ -11,6 +13,8 @@ public class JointSavingsAccount implements JointAccount {
      * @return account output
      */
     @Override
-    public String toString();
+    public String toString(){
+        return null;
+    }
 
 }

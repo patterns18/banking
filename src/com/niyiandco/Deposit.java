@@ -17,7 +17,7 @@ public class Deposit implements Transaction {
         this.amount = amount;
     }
 
-    public Transaction.TransactionType getType(){
+    public TransactionType getType(){
         return DEPOSIT;
     }
 

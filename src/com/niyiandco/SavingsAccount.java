@@ -41,7 +41,7 @@ public class SavingsAccount implements Account {
      * @return transaction output
      */
     public String printTransactions(){
-
+return null;
     }
 
     /**
@@ -52,7 +52,7 @@ public class SavingsAccount implements Account {
      */
     @Override
     public String toString(){
-
+return null;
     }
 
 
